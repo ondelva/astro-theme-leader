@@ -1,0 +1,38 @@
+---
+/*
+  The full shelf. Same rows as the home band, in the same order, with the
+  archived products dropped to a group of their own at the foot -- a shelf and
+  a storeroom, not two kinds of card.
+*/
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import WorkList from '../../components/WorkList.astro';
+import { getWork } from '../../lib/content';
+
+const all = await getWork();
+const shelf = all.filter((w) => w.data.status !== 'archived');
+const archived = all.filter((w) => w.data.status === 'archived');
+
+const description = 'Everything on the shelf, and what is still being built.';
+---
+
+<Base title="Work" description={description}>
+  <PageHead title="Work" lead={description} />
+
+  {shelf.length > 0 && (
+    <section class="border-border border-t">
+      <div class="mx-auto max-w-wide px-4 py-12 md:py-16">
+        <WorkList items={shelf} class="text-2xl md:text-4xl" />
+      </div>
+    </section>
+  )}
+
+  {archived.length > 0 && (
+    <section class="border-border border-t">
+      <div class="mx-auto max-w-wide px-4 py-10 md:py-14">
+        <h2 class="text-muted font-mono text-sm">Archived</h2>
+        <WorkList items={archived} class="mt-5 text-xl md:text-2xl" />
+      </div>
+    </section>
+  )}
+</Base>
