@@ -6,6 +6,13 @@ All notable changes to this theme are documented here. The format follows
 
 ## [Unreleased]
 
+## [1.1.2] — 2026-09-28
+
+### Changed
+
+- The Free vs Pro table in the README lists what Pro 1.2.0 added: editions with prices,
+  a Product record, a cover screenshot, and a gallery view for a category.
+
 ## [1.1.1] — 2026-09-28
 
 ### Fixed

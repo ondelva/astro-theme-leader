@@ -105,7 +105,8 @@ have it. Keeping it is how the next person finds the theme. Leader Pro ships wit
 ## Free vs Pro
 
 Leader Pro is the same shelf with a second axis through it, the reading apparatus, the
-variants and the integrations. See it running at
+variants and the integrations — and, for a shelf that sells, editions with prices and a
+gallery of screenshots. See it running at
 [leader.ondelva.com](https://leader.ondelva.com), and [buy it here](https://buy.polar.sh/polar_cl_0zouNlGburJgShVnOKjZvp5I5l9RcGea0n6ZR3TsHSg) — $49 for one
 person, $129 for a team of up to ten.
 
@@ -115,7 +116,7 @@ person, $129 for a team of up to ten.
 | Second axis    | Category only                                                          | Tags across products and notes, series, author pages                          |
 | Reading        | Body copy, footnotes, previous/next                                    | + contents rail, related notes, callouts, code copy buttons                   |
 | Finding        | Category pages, one RSS feed                                           | + Pagefind search, status and category filters on `/work`, per-category feeds |
-| Products       | Row, summary, links                                                    | + changelog per product                                                       |
+| Products       | Row, summary, links                                                    | + changelog, editions with prices and Product JSON-LD, cover, gallery view    |
 | Colour presets | 1                                                                      | 4                                                                             |
 | Font pairings  | The one it ships in                                                    | + 2 ready-made alternatives                                                   |
 | Share cards    | One static default                                                     | One drawn per product and per note at build time                              |
