@@ -6,6 +6,14 @@ All notable changes to this theme are documented here. The format follows
 
 ## [Unreleased]
 
+## [1.1.1] — 2026-09-28
+
+### Fixed
+
+- The theme switcher no longer sticks on Light where the browser blocks storage (cookies
+  blocked, some private modes). It read the saved choice back on every click, so each click
+  started again from System; it now keeps the choice in the page and only saves it.
+
 ## [1.1.0] — 2026-09-28
 
 ### Added

@@ -26,13 +26,13 @@ const t = useT(Astro.currentLocale);
   const label = button?.querySelector('[data-theme-label]');
   const order = ['system', 'light', 'dark'] as const;
 
-  const read = () => {
-    try {
-      return localStorage.getItem(KEY) ?? 'system';
-    } catch {
-      return 'system';
-    }
-  };
+  // The choice lives in this variable; localStorage only keeps it for the next page.
+  // Reading storage back on every click stalls the button wherever storage throws
+  // (cookies blocked, some private modes): each click would start again from 'system'.
+  let choice: string = 'system';
+  try {
+    choice = localStorage.getItem(KEY) ?? 'system';
+  } catch {}
 
   const apply = (value: string) => {
     if (value === 'system') root.removeAttribute('data-theme');
@@ -41,12 +41,12 @@ const t = useT(Astro.currentLocale);
     button?.setAttribute('aria-pressed', String(value === 'dark'));
   };
 
-  apply(read());
+  apply(choice);
   button?.addEventListener('click', () => {
-    const next = order[(order.indexOf(read() as (typeof order)[number]) + 1) % order.length];
+    choice = order[(order.indexOf(choice as (typeof order)[number]) + 1) % order.length];
     try {
-      localStorage.setItem(KEY, next);
+      localStorage.setItem(KEY, choice);
     } catch {}
-    apply(next);
+    apply(choice);
   });
 </script>
