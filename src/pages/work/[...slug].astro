@@ -18,6 +18,7 @@ import {
   workPath,
   year,
 } from '../../lib/content';
+import { fmt, useT } from '../../i18n/t';
 
 export async function getStaticPaths() {
   const work = await getWork();
@@ -27,6 +28,7 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { data } = entry;
 const category = categoryOf(data.category);
+const t = useT(Astro.currentLocale);
 const { Content } = await render(entry);
 
 const shelf = await getWork();
@@ -35,10 +37,10 @@ const following = next ?? shelf[0]; // the shelf wraps; a lone product has no ne
 
 // The line under the title: what is true about this product, in mono.
 const meta = [
-  { label: data.status },
-  { label: `since ${year(data.started)}` },
+  { label: t.status[data.status] },
+  { label: fmt(t.since, { year: year(data.started) }) },
   data.url && { label: new URL(data.url).host, href: data.url },
-  data.repo && { label: 'source', href: data.repo },
+  data.repo && { label: t.source, href: data.repo },
 ].filter(Boolean) as { label: string; href?: string }[];
 
 const notes = (await getNotes()).filter((n) => n.data.work?.id === entry.id);
@@ -47,7 +49,7 @@ const jsonLd = [
   {
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Work', item: new URL('/work', Astro.site).href },
+      { '@type': 'ListItem', position: 1, name: t.work, item: new URL('/work', Astro.site).href },
       { '@type': 'ListItem', position: 2, name: data.title },
     ],
   },
@@ -58,7 +60,7 @@ const jsonLd = [
   <section class="mx-auto max-w-wide px-4 pt-10 pb-8 md:pt-14">
     <p class="text-sm">
       <a href="/work" class="text-muted hover:text-foreground">
-        ← Work
+        ← {t.work}
       </a>
     </p>
 
@@ -88,7 +90,7 @@ const jsonLd = [
         <Content />
       </div>
       <p class="text-muted mt-10 font-mono text-sm">
-        Filed under{' '}
+        {t.filedUnder}{' '}
         <a href={categoryPath(category.slug)} style={`color: var(--accent-${category.accent})`}>
           {category.name}
         </a>
@@ -99,7 +101,7 @@ const jsonLd = [
   {notes.length > 0 && (
     <section class="border-border border-t">
       <div class="mx-auto max-w-wide px-4 py-10 md:py-14">
-        <h2 class="text-muted font-mono text-sm">Notes on {data.title}</h2>
+        <h2 class="text-muted font-mono text-sm">{fmt(t.notesOn, { title: data.title })}</h2>
         <NoteList notes={notes} class="mt-5 text-lg md:text-2xl" />
       </div>
     </section>
@@ -109,7 +111,7 @@ const jsonLd = [
     <section class="border-border border-t">
       <div class="mx-auto max-w-wide px-4 py-8 text-right">
         <a href={workPath(following.id)} class="text-muted hover:text-foreground text-sm">
-          Next product: {following.data.title} →
+          {fmt(t.nextProduct, { title: following.data.title })} →
         </a>
       </div>
     </section>

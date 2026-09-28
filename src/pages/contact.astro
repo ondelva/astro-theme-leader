@@ -8,12 +8,14 @@ import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
 import LeaderRow from '../components/LeaderRow.astro';
 import { contact, nav, site } from '../config';
+import { fmt, useT } from '../i18n/t';
 
-const description = `Get in touch with ${site.author}.`;
+const t = useT(Astro.currentLocale);
+const description = fmt(t.contactDescription, { name: site.author });
 ---
 
-<Base title="Contact" {description}>
-  <PageHead title="Contact" lead={description} />
+<Base title={t.contact} {description}>
+  <PageHead title={t.contact} lead={description} />
 
   <section class="border-border border-t">
     <div class="mx-auto max-w-wide px-4 py-12 md:py-16">
@@ -23,19 +25,19 @@ const description = `Get in touch with ${site.author}.`;
               and a bot fills in anyway. */}
           <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off" />
           <label class="block">
-            <span class="text-muted font-mono text-sm">Your name</span>
+            <span class="text-muted font-mono text-sm">{t.yourName}</span>
             <input type="text" name="name" required autocomplete="name" class="field" />
           </label>
           <label class="mt-6 block">
-            <span class="text-muted font-mono text-sm">Your email</span>
+            <span class="text-muted font-mono text-sm">{t.yourEmail}</span>
             <input type="email" name="email" required autocomplete="email" class="field" />
           </label>
           <label class="mt-6 block">
-            <span class="text-muted font-mono text-sm">Message</span>
+            <span class="text-muted font-mono text-sm">{t.message}</span>
             <textarea name="message" rows="6" required class="field"></textarea>
           </label>
           <button type="submit" class="send mt-8">
-            Send →
+            {t.send} →
           </button>
         </form>
       ) : (
@@ -44,7 +46,7 @@ const description = `Get in touch with ${site.author}.`;
             <li>
               <LeaderRow
                 href={`mailto:${contact.email}`}
-                title="Email"
+                title={t.email}
                 right={contact.email}
                 sub="The fastest way to reach me. I read everything and answer most things within a couple of days."
               />

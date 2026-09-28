@@ -10,7 +10,8 @@ import PageHead from '../../components/PageHead.astro';
 import NoteList from '../../components/NoteList.astro';
 import WorkList from '../../components/WorkList.astro';
 import { getNotes, getWork } from '../../lib/content';
-import { categories } from '../../config';
+import { categories, site } from '../../config';
+import { count, useT } from '../../i18n/t';
 
 export async function getStaticPaths() {
   const [work, notes] = [await getWork(), await getNotes()];
@@ -31,8 +32,12 @@ export async function getStaticPaths() {
 }
 
 const { category, work, notes } = Astro.props;
-const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? '' : 's'}`;
-const counts = [work.length && plural(work.length, 'product'), plural(notes.length, 'note')]
+const locale = Astro.currentLocale ?? site.locale;
+const t = useT(locale);
+const counts = [
+  work.length && count(t.products, work.length, locale),
+  count(t.noteCount, notes.length, locale),
+]
   .filter(Boolean)
   .join(' · ');
 ---
@@ -45,7 +50,7 @@ const counts = [work.length && plural(work.length, 'product'), plural(notes.leng
   {work.length > 0 && (
     <section class="border-border border-t">
       <div class="mx-auto max-w-wide px-4 py-10 md:py-14">
-        <h2 class="text-muted font-mono text-sm">Work</h2>
+        <h2 class="text-muted font-mono text-sm">{t.work}</h2>
         <WorkList items={work} right="status" summary={false} class="mt-5 text-xl md:text-3xl" />
       </div>
     </section>
@@ -54,7 +59,7 @@ const counts = [work.length && plural(work.length, 'product'), plural(notes.leng
   {notes.length > 0 && (
     <section class="border-border border-t">
       <div class="mx-auto max-w-wide px-4 py-10 md:py-14">
-        <h2 class="text-muted font-mono text-sm">Notes</h2>
+        <h2 class="text-muted font-mono text-sm">{t.notes}</h2>
         <NoteList notes={notes} right="reading" class="mt-5 text-lg md:text-2xl" />
       </div>
     </section>

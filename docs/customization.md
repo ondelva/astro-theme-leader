@@ -13,7 +13,7 @@ never built into `dist/`.
 | ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `site.name`, `site.description` | Nameplate, footer, feed and meta                                                                                                                    |
 | `site.url`                      | Canonical URLs, sitemap, feed, share cards. Change it before you publish, or every absolute link points at `example.com`                            |
-| `site.locale`                   | `lang` on `<html>`, `og:locale`, and the language the prose date format follows                                                                     |
+| `site.locale`                   | `lang` on `<html>`, `og:locale`, the prose date format, and which dictionary in `src/i18n/` the theme's own words come from                         |
 | `site.author`                   | Footer copyright, the JSON-LD publisher, and the byline on a note that names no author                                                              |
 | `site.defaultOgImage`           | The share image for pages with no card of their own                                                                                                 |
 | `nav.header`                    | Three items. A fourth overflows at 360px — put it in the footer instead                                                                             |
@@ -169,19 +169,20 @@ and wrap anything that should keep its own look in `.not-prose`.
 
 ## Changing the theme's own words
 
-The theme's UI strings are written where they are printed, not collected in a locale file.
-If you are rewriting them, this is the list:
+Every word the theme prints itself -- headings such as `Work` and `Notes`, the metadata
+line, the contact form, the 404 -- is in `src/i18n/en.ts`, with a Korean edition in
+`src/i18n/ko.ts`. Pages and components read them through `useT()` in `src/i18n/t.ts`.
 
-| Words                                              | File                                                       |
-| -------------------------------------------------- | ---------------------------------------------------------- |
-| `Skip to content`, the document language           | `src/layouts/Base.astro`                                   |
-| Nav labels, the theme switcher's title             | `src/config.ts`, `src/components/common/ThemeToggle.astro` |
-| Footer headings, copyright line, credit            | `src/components/common/Footer.astro`                       |
-| `Work`, `Notes`, `All work`, `All notes`           | `src/pages/index.astro`                                    |
-| Shelf and archive headings                         | `src/pages/work/index.astro`                               |
-| `Filed under`, reading time, byline, previous/next | `src/pages/notes/[...slug].astro`                          |
-| `Notes on <product>`, `Next product`               | `src/pages/work/[...slug].astro`                           |
-| Contact form labels, 404 copy                      | `src/pages/contact.astro`, `src/pages/404.astro`           |
+- **Rewording.** Edit `en.ts`. A key is a string, or a `{ one, other }` pair where the
+  number changes the word (`1 note`, `2 notes`); `Intl.PluralRules` picks the form.
+- **A site in another language.** Set `site.locale`. `ko` is ready; for any other language
+  copy `en.ts` to `src/i18n/<code>.ts`, translate it, and add it to `dicts` in `t.ts`. The
+  file is typed against `en.ts`, so a missing key is a build error rather than an English
+  word on a translated page. Some keys in the dictionaries are for Leader Pro's pages;
+  they cost nothing here.
+- **Not in the dictionaries:** your own words in `src/config.ts` (site name and description,
+  nav labels, category names and blurbs), the page copy of `about`, `privacy`, `terms` and
+  the contact line, the footer credit, and everything in `src/content/`.
 
 ## The footer credit
 

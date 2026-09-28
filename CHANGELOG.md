@@ -6,6 +6,14 @@ All notable changes to this theme are documented here. The format follows
 
 ## [Unreleased]
 
+## [1.1.0] — 2026-09-28
+
+### Added
+
+- The theme's own words are in `src/i18n/`: `en.ts`, and `ko.ts` for a site in Korean. Set
+  `site.locale` and every heading, label, count and date follows. A dictionary is typed
+  against `en.ts`, so a missing key fails the build.
+
 ## [1.0.0] — 2026-09-23
 
 ### Added

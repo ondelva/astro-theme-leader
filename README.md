@@ -120,7 +120,7 @@ person, $129 for a team of up to ten.
 | Font pairings  | The one it ships in                                                    | + 2 ready-made alternatives                                                   |
 | Share cards    | One static default                                                     | One drawn per product and per note at build time                              |
 | Integrations   | Analytics, contact form endpoint                                       | + newsletter (Buttondown), comments (giscus), Web3Forms key and redirect      |
-| i18n           | —                                                                      | Locale routing                                                                |
+| i18n           | UI strings in `src/i18n/` (English, Korean)                            | + a second language under `/ko/`: editions, language list, hreflang           |
 | Footer credit  | One line, easy to remove                                               | None                                                                          |
 | License        | MIT                                                                    | Commercial, unlimited end products                                            |
 | Support        | GitHub Issues                                                          | Email (im@ondelva.com), 2 business days                                       |

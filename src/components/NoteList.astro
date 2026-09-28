@@ -7,6 +7,7 @@
 */
 import LeaderRow from './LeaderRow.astro';
 import { categoryOf, isoDate, notePath, readingTime, type NoteEntry } from '../lib/content';
+import { fmt, useT } from '../i18n/t';
 
 interface Props {
   notes: NoteEntry[];
@@ -14,6 +15,7 @@ interface Props {
   class?: string; // the band sets the density with a text-* utility
 }
 const { notes, right = 'category', class: className } = Astro.props;
+const t = useT(Astro.currentLocale);
 ---
 
 <ul class:list={className}>
@@ -27,7 +29,7 @@ const { notes, right = 'category', class: className } = Astro.props;
           title={note.data.title}
           lead={isoDate(note.data.pubDate)}
           right={reading ? undefined : category.name}
-          mark={reading ? `${readingTime(note.body)} min` : undefined}
+          mark={reading ? fmt(t.minutes, { n: readingTime(note.body) }) : undefined}
           accent={category.accent}
         />
       </li>

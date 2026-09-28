@@ -5,12 +5,14 @@
   name twice; the nav keeps its position either way.
 */
 import { features, nav, site } from '../../config';
+import { useT } from '../../i18n/t';
 import ThemeToggle from './ThemeToggle.astro';
 
 interface Props {
   nameplate?: boolean;
 }
 const { nameplate = true } = Astro.props;
+const t = useT(Astro.currentLocale);
 
 const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
 const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`);
@@ -23,7 +25,7 @@ const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`)
         {site.name}
       </a>
     )}
-    <nav class="ml-auto" aria-label="Main">
+    <nav class="ml-auto" aria-label={t.mainNav}>
       <ul class="flex items-baseline gap-5 text-sm">
         {nav.header.map(({ label, href }) => (
           <li>

@@ -21,6 +21,7 @@ import {
   workPath,
 } from '../../lib/content';
 import { blog, site } from '../../config';
+import { fmt, useT } from '../../i18n/t';
 
 export async function getStaticPaths() {
   const notes = await getNotes();
@@ -29,6 +30,8 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { data } = entry;
+const locale = Astro.currentLocale ?? site.locale;
+const t = useT(locale);
 const category = categoryOf(data.category);
 const { Content } = await render(entry);
 
@@ -51,7 +54,7 @@ const jsonLd = [
   {
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Notes', item: new URL('/notes', Astro.site).href },
+      { '@type': 'ListItem', position: 1, name: t.notes, item: new URL('/notes', Astro.site).href },
       { '@type': 'ListItem', position: 2, name: data.title },
     ],
   },
@@ -63,7 +66,7 @@ const jsonLd = [
     <section class="mx-auto max-w-wide px-4 pt-10 pb-8 md:pt-14">
       <p class="text-sm">
         <a href="/notes" class="text-muted hover:text-foreground">
-          ← Notes
+          ← {t.notes}
         </a>
       </p>
 
@@ -72,13 +75,15 @@ const jsonLd = [
       <p class="text-muted mt-5 font-mono text-sm">
         {author}
         <span aria-hidden="true"> · </span>
-        <time datetime={isoDate(data.pubDate)}>{formatDate(data.pubDate)}</time>
+        <time datetime={isoDate(data.pubDate)}>{formatDate(data.pubDate, locale)}</time>
         {data.updatedDate && (
           <>
             <span aria-hidden="true"> · </span>
             <span>
-              updated{' '}
-              <time datetime={isoDate(data.updatedDate)}>{formatDate(data.updatedDate)}</time>
+              {t.updated}{' '}
+              <time datetime={isoDate(data.updatedDate)}>
+                {formatDate(data.updatedDate, locale)}
+              </time>
             </span>
           </>
         )}
@@ -95,7 +100,7 @@ const jsonLd = [
         {blog.showReadingTime && (
           <>
             <span aria-hidden="true"> · </span>
-            <span>{readingTime(entry.body)} min</span>
+            <span>{fmt(t.minutes, { n: readingTime(entry.body) })}</span>
           </>
         )}
       </p>
@@ -107,7 +112,7 @@ const jsonLd = [
           <Content />
         </div>
         <p class="text-muted mt-10 font-mono text-sm">
-          Filed under{' '}
+          {t.filedUnder}{' '}
           <a href={categoryPath(category.slug)} style={`color: var(--accent-${category.accent})`}>
             {category.name}
           </a>
@@ -117,7 +122,7 @@ const jsonLd = [
   </article>
 
   {(newer || older) && (
-    <nav class="border-border border-t" aria-label="More notes">
+    <nav class="border-border border-t" aria-label={t.moreNotes}>
       <div class="mx-auto flex max-w-wide flex-wrap gap-x-8 gap-y-3 px-4 py-8 text-sm">
         {newer && (
           <a href={notePath(newer.id)} class="text-muted hover:text-foreground max-w-content">

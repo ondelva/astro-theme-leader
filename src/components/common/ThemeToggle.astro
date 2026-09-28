@@ -1,10 +1,22 @@
 ---
 // Light/dark switch. The value lands on <html data-theme>, which flips
 // color-scheme so every light-dark() token switches with it. No class variant.
+// The three words ride on the button, so the script carries no copy of them.
+import { useT } from '../../i18n/t';
+
+const t = useT(Astro.currentLocale);
 ---
 
-<button type="button" data-theme-toggle aria-pressed="false" class="font-ui text-sm">
-  <span data-theme-label>System</span>
+<button
+  type="button"
+  data-theme-toggle
+  data-system={t.themeSystem}
+  data-light={t.themeLight}
+  data-dark={t.themeDark}
+  aria-pressed="false"
+  class="font-ui text-sm"
+>
+  <span data-theme-label>{t.themeSystem}</span>
 </button>
 
 <script>
@@ -25,7 +37,7 @@
   const apply = (value: string) => {
     if (value === 'system') root.removeAttribute('data-theme');
     else root.setAttribute('data-theme', value);
-    if (label) label.textContent = value[0].toUpperCase() + value.slice(1);
+    if (label) label.textContent = button?.dataset[value] ?? value;
     button?.setAttribute('aria-pressed', String(value === 'dark'));
   };
 

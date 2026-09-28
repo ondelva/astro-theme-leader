@@ -44,6 +44,7 @@ After any change, `pnpm check && pnpm build` must pass. After any colour change,
 | Add a note                                                                                   | `src/content/notes/<slug>.md` or `.mdx`                                | `.mdx` only when it imports a component of your own                                                                                               |
 | Schema fields                                                                                | `src/content.config.ts`                                                | Never remove a field; new fields must be optional or have a default                                                                               |
 | Content queries, dates, reading time                                                         | `src/lib/content.ts`                                                   | The only place that calls `getCollection()`. Draft and `showBuilding` filtering live here                                                         |
+| The theme's own words (UI strings)                                                           | `src/i18n/en.ts`, `ko.ts`; `useT()` in `src/i18n/t.ts`                 | Never write a word the theme prints straight into a component. `ko.ts` is typed against `en.ts`, so a new key goes in both                        |
 | Header, footer, theme credit                                                                 | `src/components/common/Header.astro`, `Footer.astro`                   | Link lists come from `config.ts`. The header holds three items; a fourth breaks 360px                                                             |
 | `<head>` meta                                                                                | `src/components/common/SEO.astro`                                      | Pages pass `title`, `description`, and `ogImage`/`jsonLd` when needed                                                                             |
 | Body copy styles                                                                             | the `.prose` block in `src/styles/global.css`                          | No typography plugin. Anything that keeps its own look is wrapped in `.not-prose`                                                                 |
@@ -79,7 +80,8 @@ After any change, `pnpm check && pnpm build` must pass. After any colour change,
 - Remove the skip link, focus rings, alt text or `aria-label`s.
 - Add a third-party asset that is not in `THIRD-PARTY-NOTICES.md`. Adding one means adding
   the notice in the same change.
-- Write comments, strings or documentation in any language other than English.
+- Write comments, strings or documentation in any language other than English. The one
+  exception is a dictionary in `src/i18n/`, which is the translation itself.
 
 ## Content schema (`src/content.config.ts`)
 

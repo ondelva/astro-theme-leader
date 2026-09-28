@@ -8,15 +8,18 @@ import Footer from '../components/common/Footer.astro';
 import Analytics from '../components/common/Analytics.astro';
 import DemoBar from '../components/common/DemoBar.astro';
 import { site } from '../config';
+import { useT } from '../i18n/t';
 
 type Props = ComponentProps<typeof SEO> & {
   /* The home page prints the nameplate itself; everywhere else the header carries it. */
   nameplate?: boolean;
 };
 const { nameplate, ...seo } = Astro.props;
+const locale = Astro.currentLocale ?? site.locale;
+const t = useT(locale);
 ---
 
-<html lang={Astro.currentLocale ?? site.locale}>
+<html lang={locale}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -49,7 +52,7 @@ const { nameplate, ...seo } = Astro.props;
       href="#main"
       class="bg-foreground text-background font-ui sr-only z-50 text-sm no-underline focus:fixed focus:top-4 focus:left-4 focus:not-sr-only focus:px-4 focus:py-2"
     >
-      Skip to content
+      {t.skipToContent}
     </a>
     <DemoBar />
     <Header nameplate={nameplate} />

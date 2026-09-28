@@ -6,6 +6,7 @@
 */
 import LeaderRow from './LeaderRow.astro';
 import { categoryOf, workPath, year, type WorkEntry } from '../lib/content';
+import { useT } from '../i18n/t';
 
 interface Props {
   items: WorkEntry[];
@@ -14,6 +15,7 @@ interface Props {
   class?: string;
 }
 const { items, right = 'category', summary = true, class: className } = Astro.props;
+const t = useT(Astro.currentLocale);
 ---
 
 <ul class:list={className}>
@@ -29,9 +31,9 @@ const { items, right = 'category', summary = true, class: className } = Astro.pr
           right={status ? undefined : category.name}
           mark={
             status
-              ? `${item.data.status} · ${year(item.data.started)}`
+              ? `${t.status[item.data.status]} · ${year(item.data.started)}`
               : building
-                ? 'building'
+                ? t.status.building
                 : undefined
           }
           accent={category.accent}

@@ -51,8 +51,14 @@ export const categoryPath = (slug: string) => `/category/${slug}`;
 */
 export const isoDate = (d: Date) => d.toISOString().slice(0, 10);
 
-const prose = new Intl.DateTimeFormat(site.locale, { dateStyle: 'long', timeZone: 'UTC' });
-export const formatDate = (d: Date) => prose.format(d);
+const prose = new Map<string, Intl.DateTimeFormat>();
+export const formatDate = (d: Date, locale: string = site.locale) =>
+  (
+    prose.get(locale) ??
+    prose
+      .set(locale, new Intl.DateTimeFormat(locale, { dateStyle: 'long', timeZone: 'UTC' }))
+      .get(locale)!
+  ).format(d);
 
 export const year = (d: Date) => String(d.getUTCFullYear());
 

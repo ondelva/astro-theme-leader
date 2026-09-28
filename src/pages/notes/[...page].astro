@@ -10,6 +10,7 @@ import PageHead from '../../components/PageHead.astro';
 import NoteList from '../../components/NoteList.astro';
 import { categoryPath, getNotes, getWork, type NoteEntry } from '../../lib/content';
 import { blog, categories } from '../../config';
+import { fmt, useT } from '../../i18n/t';
 
 export const getStaticPaths = (async ({ paginate }) => {
   const notes = await getNotes();
@@ -26,13 +27,14 @@ const filters = categories.filter(
     all.some((n) => n.data.category === c.slug) || work.some((w) => w.data.category === c.slug),
 );
 
-const description = 'Everything written down while building the things on this site.';
-const title = page.currentPage > 1 ? `Notes, page ${page.currentPage}` : 'Notes';
+const t = useT(Astro.currentLocale);
+const description = t.notesDescription;
+const title = page.currentPage > 1 ? fmt(t.notesPage, { n: page.currentPage }) : t.notes;
 ---
 
 <Base {title} {description} prev={page.url.prev} next={page.url.next}>
-  <PageHead title="Notes" lead={description}>
-    <nav class="mt-7 flex flex-wrap gap-x-6 gap-y-2 text-lg" aria-label="Categories">
+  <PageHead title={t.notes} lead={description}>
+    <nav class="mt-7 flex flex-wrap gap-x-6 gap-y-2 text-lg" aria-label={t.categories}>
       {filters.map((c) => (
         <a
           href={categoryPath(c.slug)}
@@ -52,15 +54,15 @@ const title = page.currentPage > 1 ? `Notes, page ${page.currentPage}` : 'Notes'
       {page.lastPage > 1 && (
         <nav
           class="text-muted mt-10 flex items-baseline justify-between font-mono text-sm"
-          aria-label="Pagination"
+          aria-label={t.pagination}
         >
           {page.url.prev ? (
             <a href={page.url.prev} class="hover:text-foreground">
-              ← Newer
+              ← {t.newer}
             </a>
           ) : (
             <span class="opacity-0" aria-hidden="true">
-              ← Newer
+              ← {t.newer}
             </span>
           )}
           <span>
@@ -68,11 +70,11 @@ const title = page.currentPage > 1 ? `Notes, page ${page.currentPage}` : 'Notes'
           </span>
           {page.url.next ? (
             <a href={page.url.next} class="hover:text-foreground">
-              Older →
+              {t.older} →
             </a>
           ) : (
             <span class="opacity-0" aria-hidden="true">
-              Older →
+              {t.older} →
             </span>
           )}
         </nav>
