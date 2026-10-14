@@ -62,9 +62,16 @@ export const formatDate = (d: Date, locale: string = site.locale) =>
 
 export const year = (d: Date) => String(d.getUTCFullYear());
 
+// Chinese and Japanese are written without spaces: each character counts as a word and reads
+// faster than one. Korean separates words with spaces and counts like English.
+const CJK = /[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}]/gu;
+
 /* 200 words a minute, rounded up, never zero. */
-export const readingTime = (body = '') =>
-  Math.max(1, Math.round(body.trim().split(/\s+/).length / 200));
+export const readingTime = (body = '') => {
+  const cjk = body.match(CJK)?.length ?? 0;
+  const words = body.replace(CJK, ' ').trim().split(/\s+/).filter(Boolean).length;
+  return Math.max(1, Math.round(words / 200 + cjk / 400));
+};
 
 /*
   A note without a description still needs one for the list, the RSS item and
