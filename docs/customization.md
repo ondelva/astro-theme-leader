@@ -186,7 +186,7 @@ line, the contact form, the 404 -- is in `src/i18n/en.ts`, with a Korean edition
 
 ## The footer credit
 
-The footer carries one line — `Leader theme by ondelva`, linking to the theme's repository.
+The footer carries one line — `Leader theme by ondelva`, linking to the theme's page on ondelva.com.
 It is the `<p>` at the foot of `src/components/common/Footer.astro`; delete it and the
 theme works exactly as it did. Keeping it is how the next person finds the theme, and it is
 the only thing the free edition asks for. Leader Pro ships without it.

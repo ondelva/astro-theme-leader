@@ -4,7 +4,7 @@ import { nav, site } from '../../config';
 
 const year = new Date().getUTCFullYear();
 // The credit line. Delete it and the <p> it sits in if you would rather not carry it.
-const themeRepo = 'https://github.com/ondelva/astro-theme-leader';
+const themeCredit = 'https://ondelva.com/themes/leader';
 ---
 
 <footer class="border-border border-t">
@@ -40,8 +40,8 @@ const themeRepo = 'https://github.com/ondelva/astro-theme-leader';
 
     <p class="mt-8 font-mono text-xs">
       © {year} {site.author} ·{' '}
-      <a href={themeRepo} class="hover:text-foreground">
-        {site.name}
+      <a href={themeCredit} rel="nofollow" class="hover:text-foreground">
+        Leader
       </a>{' '}
       theme by ondelva
     </p>
