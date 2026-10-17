@@ -14,6 +14,14 @@ The problem showed up slowly enough that I did not notice it as a problem. One o
 
 Here is the part I missed. A slow API does not just mean slow jobs. It means jobs pile up in the queue while they wait. More jobs in the queue means more concurrent workers picking them up. More concurrent workers hitting the same slow endpoint makes it slower still. And every job that timed out under that load went straight into my nice, sensible five-attempt retry policy, which multiplied the load again.
 
+The arithmetic is short. If a fraction $p$ of attempts time out and a job gets up to five, the requests per job come to
+
+$$
+1 + p + p^2 + p^3 + p^4 = \frac{1 - p^5}{1 - p}
+$$
+
+At $p = 0.75$ that is about three requests for every job, and the extra requests push $p$ higher still.
+
 ### The graph I was not looking at
 
 I did not see this because I was watching job success rate, which stayed fine. Jobs were still completing, just later and with more retries per job than they used to need. What I was not watching was total requests to that downstream API per hour, which by early 2026 had grown to roughly four times what the actual unique job volume justified. The retries were the majority of the traffic.

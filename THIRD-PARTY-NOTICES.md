@@ -15,6 +15,11 @@ permits bundling and redistribution. The licence text ships with each font packa
 Copyright 2021 The Hanken Grotesk Project Authors; Copyright 2020 The DM Mono Project
 Authors.
 
+## Math
+
+KaTeX, MIT License. https://katex.org — Copyright (c) 2013-2020 Khan Academy and other
+contributors. Its stylesheet and fonts are bundled at build time and load only on pages with math.
+
 ## Icons
 
 Lucide, ISC License. https://lucide.dev — Copyright (c) Lucide Contributors.

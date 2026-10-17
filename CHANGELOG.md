@@ -4,6 +4,16 @@ All notable changes to this theme are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the theme follows
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2026-10-17
+
+### Added
+
+- Math in notes and product pages: `$…$` inline and `$$…$$` on lines of their own, set with
+  KaTeX at build time (no client JavaScript). Chemical equations work through mhchem (`\ce{…}`).
+  Only a page with math loads the KaTeX stylesheet and fonts. If an entry has two dollar amounts
+  in one paragraph (`$20 and $30`), the text between them now renders as a formula: escape them
+  as `\$20`.
+
 ## [1.1.3] - 2026-10-14
 
 ### Fixed

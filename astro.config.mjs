@@ -5,6 +5,7 @@ import mdx from '@astrojs/mdx';
 import { satteri } from '@astrojs/markdown-satteri';
 import sitemap from '@astrojs/sitemap';
 import icon from 'astro-icon';
+import { math } from './src/lib/math.ts';
 import { site } from './src/config.ts';
 
 /*
@@ -53,7 +54,12 @@ export default defineConfig({
   // warm grey page. 'css-variables' hands the colours back to tokens.css, so a
   // code block is set in the same four accents as everything else.
   markdown: {
-    processor: satteri({ hastPlugins: [taskListLabels] }),
+    // math: $…$ and $$…$$ become KaTeX HTML at build time (src/lib/math.ts).
+    processor: satteri({
+      features: { math: true },
+      mdastPlugins: [math],
+      hastPlugins: [taskListLabels],
+    }),
     shikiConfig: { theme: 'css-variables', wrap: false },
   },
   // One grotesque carries the whole theme; weight never goes above 400, so only

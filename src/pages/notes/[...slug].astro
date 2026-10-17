@@ -6,6 +6,7 @@
   under" line at the foot, and one of the two is enough) and how long it takes.
 */
 import { render } from 'astro:content';
+import katexCss from 'katex/dist/katex.min.css?url';
 import Base from '../../layouts/Base.astro';
 import {
   categoryOf,
@@ -33,7 +34,7 @@ const { data } = entry;
 const locale = Astro.currentLocale ?? site.locale;
 const t = useT(locale);
 const category = categoryOf(data.category);
-const { Content } = await render(entry);
+const { Content, remarkPluginFrontmatter } = await render(entry);
 
 const description = data.description ?? excerpt(entry.body);
 const author = data.author ?? site.author;
@@ -62,6 +63,7 @@ const jsonLd = [
 ---
 
 <Base title={data.title} {description} type="article" {jsonLd}>
+  {remarkPluginFrontmatter.hasMath && <link slot="head" rel="stylesheet" href={katexCss} />}
   <article>
     <section class="mx-auto max-w-wide px-4 pt-10 pb-8 md:pt-14">
       <p class="text-sm">

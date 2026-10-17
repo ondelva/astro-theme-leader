@@ -88,6 +88,11 @@ slips a day west of Greenwich.
 ## Inside a note
 
 - **Footnotes** are ordinary GFM: `text[^1]` in the body, `[^1]: the note` at the end.
+- **Math** is LaTeX between dollar signs: `$…$` inside a sentence, `$$…$$` on lines of its
+  own. KaTeX sets it at build time, so the page ships no script for it, and only a page with
+  math loads the KaTeX stylesheet. Chemical equations use mhchem: `$\ce{2H2 + O2 -> 2H2O}$`.
+  Two dollar signs in one paragraph (`$20 and $30`) read as a formula between them; write `\$`
+  for a literal one.
 - **Code blocks** are highlighted with the theme's own colours rather than an imported IDE
   theme.
 - **Components** need MDX. Rename the file to `.mdx` and import your own component at the

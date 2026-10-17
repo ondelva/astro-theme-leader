@@ -6,6 +6,7 @@
   different kind of page. The metadata line under it is the only chrome.
 */
 import { render } from 'astro:content';
+import katexCss from 'katex/dist/katex.min.css?url';
 import Base from '../../layouts/Base.astro';
 import LeaderRow from '../../components/LeaderRow.astro';
 import NoteList from '../../components/NoteList.astro';
@@ -29,7 +30,7 @@ const { entry } = Astro.props;
 const { data } = entry;
 const category = categoryOf(data.category);
 const t = useT(Astro.currentLocale);
-const { Content } = await render(entry);
+const { Content, remarkPluginFrontmatter } = await render(entry);
 
 const shelf = await getWork();
 const { next } = neighbours(shelf, entry.id);
@@ -57,6 +58,7 @@ const jsonLd = [
 ---
 
 <Base title={data.title} description={data.summary} {jsonLd}>
+  {remarkPluginFrontmatter.hasMath && <link slot="head" rel="stylesheet" href={katexCss} />}
   <section class="mx-auto max-w-wide px-4 pt-10 pb-8 md:pt-14">
     <p class="text-sm">
       <a href="/work" class="text-muted hover:text-foreground">

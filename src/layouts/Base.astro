@@ -37,6 +37,7 @@ const t = useT(locale);
     />
     <Font cssVariable="--font-mono-face" />
     <SEO {...seo} />
+    <slot name="head" />
     <script is:inline>
       // Before first paint, or the page flashes the system theme.
       try {
