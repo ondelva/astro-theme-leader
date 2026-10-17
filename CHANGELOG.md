@@ -4,6 +4,13 @@ All notable changes to this theme are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the theme follows
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.1] - 2026-10-17
+
+### Added
+
+- Demo builds get a What's new page (this changelog, with links to the demo pages that show each
+  feature), linked from the demo bar. Buyer builds are unchanged.
+
 ## [1.2.0] - 2026-10-17
 
 ### Added
@@ -13,6 +20,7 @@ All notable changes to this theme are documented here. The format follows
   Only a page with math loads the KaTeX stylesheet and fonts. If an entry has two dollar amounts
   in one paragraph (`$20 and $30`), the text between them now renders as a formula: escape them
   as `\$20`.
+  See it in the demo: [Why the queue got expensive](https://leader-free.ondelva.com/notes/why-the-queue-got-expensive/).
 
 ## [1.1.3] - 2026-10-14
 

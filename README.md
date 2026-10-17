@@ -9,6 +9,8 @@ notes you kept while building it filed underneath. Free and MIT-licensed.
 [Customization](docs/customization.md) · [Content](docs/content.md) ·
 [Deploy](docs/deploy.md)
 
+What's new: [release notes](https://github.com/ondelva/astro-theme-leader/releases) · [changelog in the demo](https://leader-free.ondelva.com/whats-new/)
+
 ![The Leader shelf: one ruled row per product, the leader rule running out to its category](docs/screenshots/home-light.png)
 
 More screens, light and dark, desktop and phone: [`docs/screenshots/`](docs/screenshots/).
