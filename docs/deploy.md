@@ -66,7 +66,7 @@ handler at it if that is not automatic.
 ## Continuous integration
 
 `.github/workflows/ci.yml` runs on push and pull request: `pnpm check`, `pnpm lint`,
-`pnpm check:contrast`, `pnpm build`, Lighthouse CI against the thresholds in
+`pnpm check:contrast`, `pnpm build`, `pnpm check:sitemap`, Lighthouse CI against the thresholds in
 `lighthouserc.cjs`, and an internal link check over `dist/`. It needs no secrets. Delete the
 file if you would rather not run it.
 

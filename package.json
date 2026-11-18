@@ -1,7 +1,7 @@
 {
   "name": "astro-theme-leader",
   "type": "module",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "private": true,
   "description": "An Astro theme for a maker with many small products: a contents page for the things you ship and the notes you keep.",
   "engines": {
@@ -13,6 +13,7 @@
     "preview": "astro preview",
     "check": "astro check",
     "check:contrast": "node scripts/check-contrast.mjs",
+    "check:sitemap": "node scripts/check-sitemap.mjs",
     "lint": "eslint .",
     "format": "prettier --write ."
   },

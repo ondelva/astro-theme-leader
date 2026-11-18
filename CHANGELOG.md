@@ -4,6 +4,19 @@ All notable changes to this theme are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the theme follows
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.2] - 2026-11-18
+
+### Changed
+
+- The footer credit now links to the Leader page on ondelva.com (with `rel="nofollow"`) instead of the
+  repository. Its link text also read your site name; it now reads "Leader".
+- CI runs `pnpm check:sitemap` after the build: every sitemap URL must be a real page that
+  is not marked noindex, not a redirect source and not a Markdown file.
+
+### Fixed
+
+- `/privacy` and `/terms` are marked noindex but were listed in the sitemap. They are left out now.
+
 ## [1.2.1] - 2026-10-17
 
 ### Added

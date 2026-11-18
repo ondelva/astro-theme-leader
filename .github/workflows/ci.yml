@@ -20,6 +20,8 @@ jobs:
       - run: pnpm lint
       - run: pnpm check:contrast
       - run: pnpm build
+      # Every sitemap URL must be an indexable page (no noindex, redirect or .md)
+      - run: pnpm check:sitemap
       # Thresholds (mobile, 95+ on all four categories) live in lighthouserc.cjs
       - run: pnpm dlx @lhci/cli@0.15.1 autorun
       # Internal links only; external ones are somebody else's uptime

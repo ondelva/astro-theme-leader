@@ -37,7 +37,9 @@ export default defineConfig({
   site: process.env.SITE_URL ?? site.url,
   integrations: [
     mdx(),
-    sitemap({ filter: (page) => !page.endsWith('/styleguide/') }),
+    // Pages that print `noindex` stay out of the sitemap too, or the sitemap asks a search
+    // engine to index what the page tells it not to. Add a page here when you mark it noindex.
+    sitemap({ filter: (page) => !/\/(styleguide|privacy|terms)\/$/.test(page) }),
     icon(),
     {
       name: 'theme-styleguide',
